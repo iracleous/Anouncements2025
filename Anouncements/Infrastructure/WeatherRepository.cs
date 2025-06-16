@@ -4,13 +4,20 @@ namespace Anouncements.Infrastructure;
 
 public class WeatherRepository : IWeatherRepository
 {
-    public Task AddWeatherForecastAsync(WeatherForecast weatherForecast)
+
+    private readonly Data _context;
+    public WeatherRepository(Data context)
     {
-        throw new NotImplementedException();
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+    }
+    public async Task AddWeatherForecastAsync(WeatherForecast weatherForecast)
+    {
+        _context.WeatherForecasts.Add(weatherForecast);
+        await _context.SaveChangesAsync();
     }
 
     public IQueryable<WeatherForecast> GetWeatherForecasts()
     {
-        throw new NotImplementedException();
+        return _context.WeatherForecasts;
     }
 }
