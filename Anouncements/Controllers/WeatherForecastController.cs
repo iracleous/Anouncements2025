@@ -1,3 +1,4 @@
+using Announcements.Security;
 using Anouncements.Models;
 using Anouncements.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,8 @@ public class WeatherForecastController : ControllerBase
 
   
     [HttpPost]
+    [ApiKeyAuth]
+
     public async Task<ActionResult<WeatherForecast>> PostAsync([FromBody] WeatherForecast weatherForecast)
     {
         if (weatherForecast == null)
