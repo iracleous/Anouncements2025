@@ -17,6 +17,30 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
+
+// --- Automatic Migration Logic ---
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<Data>();
+        context.Database.Migrate();
+        // You can also add seed data here if needed
+        // await SeedData.Initialize(services); 
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while migrating the database.");
+        // Consider re-throwing the exception or taking other action
+    }
+}
+// --- End Automatic Migration Logic ---
+
+
+
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

@@ -6,8 +6,10 @@ Accept: application/json
 ###
 POST {{Anouncements_HostAddress}}/weatherforecast/
 Content-Type: application/json
-Application-Type:application/json
+Accept: application/json
 { "date": "2025-10-01",
   "temperatureC": 25,
   "summary": "Warm and affordable"
 }
+
+###

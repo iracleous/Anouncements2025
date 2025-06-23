@@ -8,11 +8,6 @@ namespace Anouncements.Controllers;
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
     private readonly ILogger<WeatherForecastController> _logger;
     private readonly IWeatherService _weatherService;
 
@@ -29,7 +24,7 @@ public class WeatherForecastController : ControllerBase
         return await _weatherService.GetWeatherForecastsAsync();
     }
 
-
+  
     [HttpPost]
     public async Task<ActionResult<WeatherForecast>> PostAsync([FromBody] WeatherForecast weatherForecast)
     {
@@ -38,6 +33,8 @@ public class WeatherForecastController : ControllerBase
             return BadRequest("Weather forecast cannot be null.");
         }
         await _weatherService.AddWeatherForecastAsync(weatherForecast);
-        return Ok(  weatherForecast );
+        return Ok(weatherForecast);
     }
+
 }
+
