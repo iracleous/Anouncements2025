@@ -1,5 +1,7 @@
+using Anouncements.Factory;
 using Anouncements.Infrastructure;
 using Anouncements.Services;
+using Anouncements.Singleton;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,13 @@ builder.Services.AddScoped<IWeatherService, WeatherService>();
 builder.Services.AddScoped<IWeatherRepository, WeatherRepository>();
 builder.Services.AddDbContext<Data>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+builder.Services.AddSingleton<IAppConfigService, AppConfigService>();
+builder.Services.AddSingleton<INotifierFactory, NotifierFactory>();
+
+
+
 
 var app = builder.Build();
 
