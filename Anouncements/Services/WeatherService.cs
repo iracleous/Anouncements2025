@@ -23,4 +23,15 @@ public class WeatherService : IWeatherService
         var query =  _weatherRepository.GetWeatherForecasts();
         return await query.Take(count).ToListAsync().ContinueWith(task => task.Result.AsEnumerable());
     }
+
+
+    public WeatherForecast DemoWeatherForcast()
+    {
+        return new WeatherForecast
+        {
+            Date = DateOnly.FromDateTime(DateTime.Now),
+            TemperatureC = 20,
+            Summary = "Warm and sunny",
+        };
+    }
 }
